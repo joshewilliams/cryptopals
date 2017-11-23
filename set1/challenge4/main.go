@@ -2,9 +2,7 @@ package main
 
 import (
 	"bufio"
-	"cryptopals/set1/charscore"
-	"cryptopals/set1/xor"
-	"encoding/hex"
+	"cryptopals/set1/brute"
 	"fmt"
 	"os"
 )
@@ -20,27 +18,15 @@ func main() {
 	check(err)
 
 	fscanner := bufio.NewScanner(file)
-	hightop := 0
-	var resulttop string
+	var highest int
+	var finalResult string
 	for fscanner.Scan() {
 		src := fscanner.Text()
-		high := 0
-		var out string
-		for i := 0; i <= 255; i++ {
-			key := hex.EncodeToString([]byte(string(i)))
-			result := xor.ToASCII(src, key)
-			score := charscore.TotalScore(result)
-			if score > high {
-				high = score
-				out = result
-			}
+		result, high := brute.Xor(src)
+		if high > highest {
+			highest = high
+			finalResult = result
 		}
-		if high > hightop {
-			hightop = high
-			resulttop = out
-		}
-
 	}
-
-	fmt.Print(resulttop)
+	fmt.Print(finalResult)
 }
