@@ -17,5 +17,5 @@ func main() {
 	file, _ := ioutil.ReadFile("./6.txt")
 	s := string(file)
 	sAsc := b64.ToASCII(s)
-	fmt.Printf("%x", brute.Repeat(sAsc))
+	fmt.Printf(brute.Repeat(sAsc))
 }

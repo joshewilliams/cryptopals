@@ -4,7 +4,8 @@ import (
 	"cryptopals/set1/charscore"
 	"cryptopals/set1/xor"
 	"encoding/hex"
-	"strings"
+	"fmt"
+	//"strings"
 )
 
 // Xor function for bruteforcing xor'd data, single byte key
@@ -13,7 +14,7 @@ func Xor(src string) (string, int) {
 	var out string
 	for i := 0; i <= 255; i++ {
 		key := hex.EncodeToString([]byte(string(i)))
-		result := xor.ToASCII(src, key, true, false)
+		result := xor.ToASCII(src, key[(len(key)-2):], false, false)
 		score := charscore.TotalScore(result)
 		if score > high {
 			high = score
@@ -27,6 +28,7 @@ func Xor(src string) (string, int) {
 func Repeat(src string) string {
 	//bSrc := []byte(src)
 	var low, finalKeySize int
+	// Determine possible keysizse based on hamming distance, stored as finalKeySize
 	for keysize := 2; keysize <= 40; keysize++ {
 		tmp1, tmp2, tmp3, tmp4 := src[:keysize], src[keysize:keysize*2], src[keysize*2:keysize*3], src[keysize*3:keysize*4]
 		result1 := charscore.Hamming(tmp1, tmp2)
@@ -43,22 +45,30 @@ func Repeat(src string) string {
 			}
 		}
 	}
+	// Break the ciphertext into blocks of length finalKeySize
 	block := make([]string, len(src)/finalKeySize)
 	for i := 0; i < len(src)/finalKeySize; i++ {
-		block[i] = src[finalKeySize*i : finalKeySize*i+1]
+		block[i] = src[finalKeySize*i : finalKeySize*i+finalKeySize]
 	}
-	block2 := make([]string, len(block))
-	for i := 0; i < len(block[i]); i++ {
-		var tmp byte
-		for j := 0; j < len(block); j++ {
-			tmp += block[j][i]
+	// Transpose those blocks so that there are finalKeySize blocks, all bytes in each index of each block
+	// i.e. first block contains the first byte of each block, second block contains second byte of each block, etc...
+	block2 := make([]string, finalKeySize)
+	for i := 0; i < finalKeySize; i++ {
+		var temp = ""
+		for j := range block {
+			temp += string(block[j][i])
 		}
-		block2[i] = string(tmp)
+		block2[i] = temp
 	}
-	out := make([]string, len(block2))
+
+	// Run single byte xor cracker on the blocks of bytes
+	// out := make([]string, len(block2))
+	out := ""
 	for i := range block2 {
-		out[i], _ = Xor(block2[i])
+		keyTemp, _ := Xor(block2[i])
+		out += keyTemp
 	}
-	finalOut := strings.Join(out, "")
-	return finalOut
+	// finalOut := strings.Join(out, "")
+	fmt.Println(out)
+	return out
 }
