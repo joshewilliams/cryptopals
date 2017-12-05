@@ -1,6 +1,7 @@
 package charscore
 
 import "strings"
+import "math"
 
 // GetCharScore function to determine "score" of individual characters in potentially decoded message
 func GetCharScore(data string) int {
@@ -43,6 +44,25 @@ func TotalScore(data string) int {
 	total := 0
 	for _, r := range data {
 		total += GetCharScore(strings.ToLower(string(r)))
+	}
+	return total
+}
+
+// Hamming function to calculate Hamming distance between two strings
+func Hamming(data1, data2 string) int {
+	total := 0
+	if data1 == data2 {
+		return total
+	}
+	bData1, bData2 := []byte(data1), []byte(data2)
+	for i := 0; i < len(bData1); i++ {
+		tmp1, tmp2 := bData1[i], bData2[i]
+		for counter := 0; counter < 8; counter++ {
+			test := byte(math.Pow(float64(2), float64(counter)))
+			if (tmp1 & test) != (tmp2 & test) {
+				total++
+			}
+		}
 	}
 	return total
 }

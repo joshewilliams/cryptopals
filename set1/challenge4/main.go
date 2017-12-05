@@ -16,6 +16,7 @@ func check(e error) {
 func main() {
 	file, err := os.Open("./4.txt")
 	check(err)
+	defer file.Close()
 
 	fscanner := bufio.NewScanner(file)
 	var highest int
