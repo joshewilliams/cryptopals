@@ -3,8 +3,8 @@ package brute
 import (
 	"cryptopals/set1/charscore"
 	"cryptopals/set1/xor"
-	"encoding/hex"
-	"fmt"
+	// "encoding/hex"
+	// "fmt"
 	//"strings"
 )
 
@@ -13,12 +13,12 @@ func Xor(src string) (string, int) {
 	high := 0
 	var out string
 	for i := 0; i <= 255; i++ {
-		key := hex.EncodeToString([]byte(string(i)))
-		result := xor.ToASCII(src, key[(len(key)-2):], false, false)
+		key := string(i)
+		result := xor.ToASCII(src, key, false, false)
 		score := charscore.TotalScore(result)
 		if score > high {
 			high = score
-			out = result
+			out = key
 		}
 	}
 	return out, high
@@ -69,6 +69,5 @@ func Repeat(src string) string {
 		out += keyTemp
 	}
 	// finalOut := strings.Join(out, "")
-	fmt.Println(out)
 	return out
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"cryptopals/set1/b64"
 	"cryptopals/set1/brute"
+	"cryptopals/set1/xor"
 	"fmt"
 	"io/ioutil"
 )
@@ -17,5 +18,6 @@ func main() {
 	file, _ := ioutil.ReadFile("./6.txt")
 	s := string(file)
 	sAsc := b64.ToASCII(s)
-	fmt.Printf(brute.Repeat(sAsc))
+	key := brute.Repeat(sAsc)
+	fmt.Println(xor.ToASCII(s, key, false, true))
 }

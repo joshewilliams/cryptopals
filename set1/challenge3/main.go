@@ -13,7 +13,7 @@ func main() {
 	var out string
 	for i := 0; i <= 255; i++ {
 		key := hex.EncodeToString([]byte(string(i)))
-		result := xor.ToASCII(src, key)
+		result := xor.ToASCII(src, key, true, false)
 		score := charscore.TotalScore(result)
 		if score > high {
 			high = score
