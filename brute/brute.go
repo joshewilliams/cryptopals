@@ -6,12 +6,12 @@ import (
 )
 
 // Xor function for bruteforcing xor'd data, single byte key
-func Xor(src string) (string, int) {
+func Xor(src string, hexa bool) (string, int) {
 	high := 0
 	var out string
 	for i := 0; i <= 255; i++ {
 		key := string(i)
-		result := xor.ToASCII(src, key, false, false)
+		result := xor.ToASCII(src, key, hexa, false)
 		score := charscore.TotalScore(result)
 		if score > high {
 			high = score
@@ -77,7 +77,7 @@ func Repeat(src string) []string {
 		// out := make([]string, len(block2))
 		fullKey := ""
 		for _, k := range block2 {
-			keyTemp, _ := Xor(k)
+			keyTemp, _ := Xor(k, false)
 			fullKey += keyTemp
 		}
 		finalKeys = append(finalKeys, fullKey)

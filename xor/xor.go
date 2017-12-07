@@ -39,6 +39,9 @@ func ToHex(src string, key string, hexa bool, repeat bool) string {
 	if hexa == true {
 		bSrc, _ = hex.DecodeString(src)
 		bKey, _ = hex.DecodeString(key)
+		if len(bKey) == 0 {
+			bKey = []byte(key)
+		}
 	} else {
 		bSrc = []byte(src)
 		bKey = []byte(key)

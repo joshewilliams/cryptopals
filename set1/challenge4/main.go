@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"cryptopals/brute"
+	"cryptopals/xor"
 	"fmt"
 	"os"
 )
@@ -20,14 +21,19 @@ func main() {
 
 	fscanner := bufio.NewScanner(file)
 	var highest int
-	var finalResult string
+	var finalResult, finalOutput, ciphertext string
+
 	for fscanner.Scan() {
 		src := fscanner.Text()
-		result, high := brute.Xor(src)
+		result, high := brute.Xor(src, true)
 		if high > highest {
 			highest = high
 			finalResult = result
+			ciphertext = src
+			finalOutput = xor.ToASCII(src, finalResult, true, false)
 		}
 	}
-	fmt.Print(finalResult)
+	fmt.Println("Key:", finalResult)
+	fmt.Println("Ciphertext:", ciphertext)
+	fmt.Println("Plaintext:", finalOutput)
 }
