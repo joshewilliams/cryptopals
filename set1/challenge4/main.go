@@ -2,7 +2,7 @@ package main
 
 import (
 	"bufio"
-	"cryptopals/set1/brute"
+	"cryptopals/brute"
 	"fmt"
 	"os"
 )

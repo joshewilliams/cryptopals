@@ -1,8 +1,8 @@
 package brute
 
 import (
-	"cryptopals/set1/charscore"
-	"cryptopals/set1/xor"
+	"cryptopals/charscore"
+	"cryptopals/xor"
 )
 
 // Xor function for bruteforcing xor'd data, single byte key

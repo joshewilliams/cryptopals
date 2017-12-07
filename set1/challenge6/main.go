@@ -1,18 +1,12 @@
 package main
 
 import (
-	"cryptopals/set1/b64"
-	"cryptopals/set1/brute"
-	"cryptopals/set1/xor"
+	"cryptopals/b64"
+	"cryptopals/brute"
+	"cryptopals/xor"
 	"fmt"
 	"io/ioutil"
 )
-
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
 
 func main() {
 	file, _ := ioutil.ReadFile("./6.txt")

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"cryptopals/set1/charscore"
-	"cryptopals/set1/xor"
+	"cryptopals/charscore"
+	"cryptopals/xor"
 	"encoding/hex"
 	"fmt"
 )

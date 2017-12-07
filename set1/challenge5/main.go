@@ -1,7 +1,7 @@
 package main
 
 import (
-	"cryptopals/set1/xor"
+	"cryptopals/xor"
 	"fmt"
 )
 
