@@ -19,8 +19,8 @@ func main() {
 	s := string(file)
 	sAsc := b64.ToASCII(s)
 	key := brute.Repeat(sAsc)
-	fmt.Println(key)
 	for i := range key {
-		fmt.Println(xor.ToASCII(s, key[i], false, true))
+		fmt.Println(xor.ToASCII(sAsc, key[i], false, true))
+		fmt.Printf("\n\n\n")
 	}
 }

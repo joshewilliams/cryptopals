@@ -39,8 +39,8 @@ func Repeat(src string) []string {
 		keyMap[keysize] = result
 	}
 
-	// Grab five keysizes with the smallest hamming distances
-	for i := 0; i < 5; i++ {
+	// Grab three keysizes with the smallest hamming distances
+	for i := 0; i < 3; i++ {
 		var lowKey int
 		lowValue := 10000
 		for j, k := range keyMap {
@@ -53,8 +53,6 @@ func Repeat(src string) []string {
 		delete(keyMap, lowKey)
 	}
 
-	// Current issue is that finalKeys (l.82) is out of range at some point during assignment of keyTemp value.
-	// My math must be iffy, will straighten this out later.
 	var finalKeys []string
 	for i := range keys {
 
@@ -77,10 +75,12 @@ func Repeat(src string) []string {
 
 		// Run single byte xor cracker on the blocks of bytes
 		// out := make([]string, len(block2))
-		for j, k := range block2 {
+		fullKey := ""
+		for _, k := range block2 {
 			keyTemp, _ := Xor(k)
-			finalKeys[j] = keyTemp
+			fullKey += keyTemp
 		}
+		finalKeys = append(finalKeys, fullKey)
 	}
 
 	// finalOut := strings.Join(out, "")
