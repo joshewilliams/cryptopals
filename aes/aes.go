@@ -6,7 +6,7 @@ import (
 
 // ECB function to perform AES-ECB-128 encryption/decryption as needed
 func ECB(data, key []byte) []byte {
-	cipher, _ := aes.NewCipher([]byte(key))
+	cipher, _ := aes.NewCipher(key)
 	out := make([]byte, len(data))
 	size := 16
 
