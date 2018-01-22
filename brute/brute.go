@@ -3,26 +3,24 @@ package brute
 import (
 	"cryptopals/charscore"
 	"cryptopals/xor"
-	"strings"
 )
 
 // Xor function for bruteforcing xor'd data, single byte key
 func Xor(src string, hexa bool) ([]byte, int) {
 	high := 0
 	var out []byte
-XOR:
+
 	for i := 0; i <= 255; i++ {
 		tmp := byte(i)
 		key := make([]byte, 1)
 		key[0] = byte(tmp)
 		result := xor.ToASCII(src, key, hexa, false)
 		score := charscore.TotalScore(result)
-		for _, r := range result {
-			if charscore.GetCharScore(strings.ToLower(string(r))) == 0 {
-				score = 0
-				continue XOR
-			}
-		}
+		// for _, r := range result {
+		// 	if charscore.GetCharScore(strings.ToLower(string(r))) == 0 {
+		// 		score = 1
+		// 	}
+		// }
 		if score > high {
 			high = score
 			out = key
@@ -53,7 +51,7 @@ func Repeat(src string) []string {
 	}
 
 	// Grab three keysizes with the smallest hamming distances
-	for i := 0; i < 5; i++ {
+	for i := 0; i < 3; i++ {
 		var lowKey int
 		lowValue := 10000
 		for j, k := range keyMap {
