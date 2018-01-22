@@ -21,13 +21,16 @@ func Xor(src string, hexa bool) (string, int) {
 	return out, high
 }
 
-// Repeat function for bruteforcing xor'd data with a repeating xor key (between 2 and 40 bytes in length)
+// Repeat function for bruteforcing xor'd2 data with a repeating xor key (between 2 and 40 bytes in length)
 func Repeat(src string) []string {
 	keyMap := make(map[int]int)
 	keys := make(map[int]int)
 
 	// Determine possible keysizse based on hamming distance, stored as finalKeySize
 	for keysize := 2; keysize <= 40; keysize++ {
+		if keysize > len(src)/4 {
+			break
+		}
 		tmp1, tmp2, tmp3, tmp4 := src[:keysize], src[keysize:keysize*2], src[keysize*2:keysize*3], src[keysize*3:keysize*4]
 		result1 := charscore.Hamming(tmp1, tmp2)
 		result2 := charscore.Hamming(tmp2, tmp3)
@@ -40,7 +43,7 @@ func Repeat(src string) []string {
 	}
 
 	// Grab three keysizes with the smallest hamming distances
-	for i := 0; i < 3; i++ {
+	for i := 0; i < 5; i++ {
 		var lowKey int
 		lowValue := 10000
 		for j, k := range keyMap {
