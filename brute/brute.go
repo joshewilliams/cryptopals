@@ -18,12 +18,13 @@ func Xor(src string, hexa bool) ([]byte, int) {
 		score := charscore.TotalScore(result)
 		// for _, r := range result {
 		// 	if charscore.GetCharScore(strings.ToLower(string(r))) == 0 {
-		// 		score = 1
+		// 		score = 0
+		// 		break
 		// 	}
 		// }
 		if score > high {
-			high = score
 			out = key
+			high = score
 		}
 	}
 	return out, high
@@ -51,7 +52,7 @@ func Repeat(src string) []string {
 	}
 
 	// Grab three keysizes with the smallest hamming distances
-	for i := 0; i < 3; i++ {
+	for i := 0; i < 5; i++ {
 		var lowKey int
 		lowValue := 10000
 		for j, k := range keyMap {

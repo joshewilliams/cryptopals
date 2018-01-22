@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	s := "39090249051f11084f071e5b4722223a2a2a2115035110361440025c300d5d510c580d142f185e1a053e1f59110e"
+	s := "d3d9d1c2ddd6e3efaceaf5ede8c7acc7f9c7e0a8eac7a9e5"
 	bAsc, _ := hex.DecodeString(s)
 	sAsc := string(bAsc[:])
 	key := brute.Repeat(sAsc)
