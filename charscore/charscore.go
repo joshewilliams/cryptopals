@@ -5,15 +5,27 @@ import "math"
 
 // GetCharScore function to determine "score" of individual characters in potentially decoded message
 func GetCharScore(data string) int {
+	out := 0
 	scores := map[string]int{
 		"e": 27,
+		"3": 27,
 		"t": 26,
+		"7": 26,
 		" ": 25,
+		"_": 25,
+		"-": 25,
 		"a": 24,
+		"4": 24,
+		"@": 24,
 		"o": 23,
+		"0": 23,
 		"i": 22,
+		"1": 22,
+		"!": 22,
 		"n": 21,
 		"s": 20,
+		"5": 20,
+		"$": 20,
 		"h": 19,
 		"r": 18,
 		"d": 17,
@@ -21,21 +33,31 @@ func GetCharScore(data string) int {
 		"c": 15,
 		"u": 14,
 		"m": 13,
-		"w": 12,
+		"w": 14,
+		"{": 1,
+		"}": 1,
+		"[": 1,
+		"]": 1,
+		"(": 1,
+		")": 1,
 		"f": 11,
 		"g": 10,
+		"9": 10,
+		"6": 10,
 		"y": 9,
 		"p": 8,
 		"b": 7,
+		"8": 7,
 		"v": 6,
 		"k": 5,
 		"j": 4,
 		"x": 3,
 		"q": 2,
 		"z": 1,
+		"2": 1,
 	}
 
-	out := scores[data]
+	out = scores[data]
 	return out
 }
 

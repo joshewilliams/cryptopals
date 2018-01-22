@@ -33,18 +33,14 @@ func Repeat(src, key []byte) []byte {
 }
 
 // ToHex function takes input strings, XORs them and returns the hex encoded result
-func ToHex(src string, key string, hexa bool, repeat bool) string {
+func ToHex(src string, key []byte, hexa bool, repeat bool) string {
 	var bSrc []byte
 	var bKey []byte
 	if hexa == true {
 		bSrc, _ = hex.DecodeString(src)
-		bKey, _ = hex.DecodeString(key)
-		if len(bKey) == 0 {
-			bKey = []byte(key)
-		}
 	} else {
 		bSrc = []byte(src)
-		bKey = []byte(key)
+		bKey = key
 	}
 	var sHex string
 	if repeat == true {
@@ -56,7 +52,7 @@ func ToHex(src string, key string, hexa bool, repeat bool) string {
 }
 
 // ToASCII function takes input strings, XORs them and returns the ASCII result
-func ToASCII(src string, key string, hexa bool, repeat bool) string {
+func ToASCII(src string, key []byte, hexa bool, repeat bool) string {
 	out, _ := hex.DecodeString(ToHex(src, key, hexa, repeat))
 	sAsc := string(out[:])
 	return sAsc

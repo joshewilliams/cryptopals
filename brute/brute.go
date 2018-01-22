@@ -3,16 +3,26 @@ package brute
 import (
 	"cryptopals/charscore"
 	"cryptopals/xor"
+	"strings"
 )
 
 // Xor function for bruteforcing xor'd data, single byte key
-func Xor(src string, hexa bool) (string, int) {
+func Xor(src string, hexa bool) ([]byte, int) {
 	high := 0
-	var out string
+	var out []byte
+XOR:
 	for i := 0; i <= 255; i++ {
-		key := string(i)
+		tmp := byte(i)
+		key := make([]byte, 1)
+		key[0] = byte(tmp)
 		result := xor.ToASCII(src, key, hexa, false)
 		score := charscore.TotalScore(result)
+		for _, r := range result {
+			if charscore.GetCharScore(strings.ToLower(string(r))) == 0 {
+				score = 0
+				continue XOR
+			}
+		}
 		if score > high {
 			high = score
 			out = key
@@ -81,7 +91,7 @@ func Repeat(src string) []string {
 		fullKey := ""
 		for _, k := range block2 {
 			keyTemp, _ := Xor(k, false)
-			fullKey += keyTemp
+			fullKey += string(keyTemp)
 		}
 		finalKeys = append(finalKeys, fullKey)
 	}
